@@ -1,90 +1,204 @@
-
-<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<script type="text/javascript" src="validateForm.js"></script>
-<style>
-  
-  h2 {
-    font-family: Lobster, Monospace;
-  }
-
-  .thick-green-border {
-    border-color: green;
-    border-width: 10px;
-    border-style: solid;
-    border-radius: 50%;
-  }
-
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CatPhotoApp - Submit Your Cat</title>
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <style>
+    h2 {
+      font-family: Lobster, Monospace;
+    }
+    .thick-green-border {
+      border-color: green;
+      border-width: 10px;
+      border-style: solid;
+      border-radius: 50%;
+    }
+    .container-fluid {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #responseMsg {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
 
 <div class="container-fluid">
-<div class="row">
-  <div class="col-xs-8">
-    <h2 class="text-primary text-center">CatPhotoApp</h2>
-  </div>
-  <div class="col-xs-4">
-    <a href="#"><img class="img-responsive thick-green-border" src="relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
-  </div>
-
-</div>
-<img class="img-responsive" src="running-cats.jpg">
-<div class="row">
-    <div class="col-xs-4">
-        <button class="btn btn-primary btn-block"><i class="fas fa-thumbs-up">Like</i></button>
-    </div>
-    <div class="col-xs-4">
-        <button class="btn btn-block btn-info"><i class="fas fa-info-circle">Info</i></button>
-    </div>
-    <div class="col-xs-4">
-        <button class="btn btn-block btn-danger"><i class="fas fa-trash">Delete</i></button>
-    </div>
-
-  </div>
-<p>Things cats <span class="text-danger">love</span></p>
-<ul>
-  <li>cat nip</li>
-  <li>laser pointers</li>
-  <li>lasagna</li>
-</ul>
-<p>Top 3 things cats hate:</p>
-<ol>
-  <li>flea treatment</li>
-  <li>thunder</li>
-  <li>other cats</li>
-</ol>
-<form name="catForm" onsubmit="return validateForm()" action="https://cat-management-api.onrender.com/api/users">
   <div class="row">
-    <div class="col-xs-6">
-      <label><input type="radio" name="indoor-outdoor"> Indoor</label>
+    <div class="col-xs-8">
+      <h2 class="text-primary text-center">CatPhotoApp</h2>
     </div>
-    <div class="col-xs-6">
-      <label><input type="radio" name="indoor-outdoor"> Outdoor</label>
+    <div class="col-xs-4">
+      <a href="#"><img class="img-responsive thick-green-border" src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="A cute orange cat lying on its back."></a>
     </div>
-
   </div>
+  
+  <img class="img-responsive" src="https://cdn.pixabay.com/photo/2015/03/27/13/16/cat-694730_1280.jpg" alt="Running cats">
+  
   <div class="row">
     <div class="col-xs-4">
-      <label><input type="checkbox" name="personality"> Loving</label>
+      <button class="btn btn-primary btn-block"><i class="fas fa-thumbs-up"></i> Like</button>
     </div>
-  <div class="col-xs-4">
-    <label><input type="checkbox" name="personality"> Lazy</label>
+    <div class="col-xs-4">
+      <button class="btn btn-block btn-info"><i class="fas fa-info-circle"></i> Info</button>
+    </div>
+    <div class="col-xs-4">
+      <button class="btn btn-block btn-danger"><i class="fas fa-trash"></i> Delete</button>
+    </div>
   </div>
-  <div class="col-xs-4">
-<label><input type="checkbox" name="personality"> Crazy</label>
-  </div>
-  </div>
-  <div class="row">
+  
+  <p>Things cats <span class="text-danger">love</span></p>
+  <ul>
+    <li>cat nip</li>
+    <li>laser pointers</li>
+    <li>lasagna</li>
+  </ul>
+  <p>Top 3 things cats hate:</p>
+  <ol>
+    <li>flea treatment</li>
+    <li>thunder</li>
+    <li>other cats</li>
+  </ol>
+  
+  <!-- Updated Form - Now connects to YOUR API -->
+  <form id="catForm">
+    <div class="row">
+      <div class="col-xs-6">
+        <label><input type="radio" name="type" value="Indoor"> Indoor</label>
+      </div>
+      <div class="col-xs-6">
+        <label><input type="radio" name="type" value="Outdoor"> Outdoor</label>
+      </div>
+    </div>
     
-    <div class="col-xs-7">
-      <input type="text" name="catUrl" class="form-control" placeholder="cat photo URL" >
+    <div class="row">
+      <div class="col-xs-4">
+        <label><input type="checkbox" name="personality" value="Loving"> Loving</label>
+      </div>
+      <div class="col-xs-4">
+        <label><input type="checkbox" name="personality" value="Lazy"> Lazy</label>
+      </div>
+      <div class="col-xs-4">
+        <label><input type="checkbox" name="personality" value="Crazy"> Crazy</label>
+      </div>
     </div>
-  <div class="col-xs-5">
-    <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane">Submit</i></button>
-  </div>
-  </div>
-  </div>
-  <div id="errorMsg">
-
-</form>
+    
+    <!-- NEW FIELDS ADDED for your API -->
+    <div class="row">
+      <div class="col-xs-6">
+        <input type="text" name="name" class="form-control" placeholder="Cat Name" id="name" required>
+      </div>
+      <div class="col-xs-6">
+        <input type="number" name="age" class="form-control" placeholder="Cat Age" id="age" required>
+      </div>
+    </div>
+    
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-xs-12">
+        <input type="text" name="catUrl" class="form-control" placeholder="Cat Photo URL (optional)">
+      </div>
+    </div>
+    
+    <div class="row" style="margin-top: 15px;">
+      <div class="col-xs-12">
+        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-paper-plane"></i> Submit Cat</button>
+      </div>
+    </div>
+  </form>
+  
+  <div id="responseMsg"></div>
+  <h3>API Response:</h3>
+  <pre id="response"></pre>
+  
 </div>
+
+<script>
+  const form = document.getElementById("catForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Get form values
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+    
+    // Get selected radio button (type)
+    const selectedType = document.querySelector('input[name="type"]:checked');
+    const type = selectedType ? selectedType.value : null;
+    
+    // Get selected checkboxes (personality)
+    const selectedPersonalities = document.querySelectorAll('input[name="personality"]:checked');
+    const personality = Array.from(selectedPersonalities).map(cb => cb.value);
+    
+    const catUrl = document.querySelector('input[name="catUrl"]').value;
+
+    // Show loading message
+    document.getElementById("responseMsg").innerHTML = 
+      '<div class="alert alert-info">⏳ Sending cat to the cloud...</div>';
+    
+    try {
+      // Send to YOUR API
+      const res = await fetch("https://cat-management-api.onrender.com/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ 
+          name, 
+          age: parseInt(age),
+          type,
+          personality,
+          catUrl
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Success message
+        document.getElementById("responseMsg").innerHTML = 
+          '<div class="alert alert-success">✅ Cat saved successfully! Your cat has been added to the database.</div>';
+        
+        // Show JSON response
+        document.getElementById("response").textContent = 
+          JSON.stringify(data, null, 2);
+        
+        // Clear form
+        form.reset();
+        
+      } else {
+        throw new Error(data.error || "Failed to save");
+      }
+
+    } catch (err) {
+      document.getElementById("responseMsg").innerHTML = 
+        '<div class="alert alert-danger">❌ Error: ' + err.message + '</div>';
+      console.error("Error:", err);
+    }
+  });
+</script>
+
+</body>
+</html>
